@@ -1,0 +1,62 @@
+<section class="movies-wrapper">
+  <div class="container movies-list">
+    <div
+      *ngIf="favouriteMovieList && favouriteMovieList.length > 0"
+      class="row align-items-stretch"
+    >
+      <div
+        *ngFor="let movie of favouriteMovieList"
+        class="col-lg-6 col-md-6 col-12 mt-2 mb-2"
+      >
+        <div class="single-movie">
+          <div class="movie-image">
+            <a href="javascript:void(0)" [routerLink]="['/movie/', movie.id]">
+              <img src="{{ movie.poster_path }}" alt="movie.title" />
+            </a>
+          </div>
+          <div class="movie-info">
+            <div class="movie-header">
+              <a
+                class="movie-title"
+                href="javascript:void(0)"
+                [routerLink]="['/movie/', movie.id]"
+                >{{ movie.title }}</a
+              >
+              <span class="movie-date">{{
+                movie.release_date | date: "MMMM d, y"
+              }}</span>
+              <a
+                class="toggle-fav"
+                href="javascript:void(0)"
+                [class.active]="movie.isFavourite"
+                (click)="toggleFav(movie.id)"
+              >
+                <i class="fa fa-heart"></i>
+              </a>
+            </div>
+            <div class="movie-body">
+              <span>{{
+                movie.overview.length > 200
+                  ? movie.overview.substr(0, 200) + "..."
+                  : movie.overview
+              }}</span>
+            </div>
+            <a
+              class="view-more"
+              href="javascript:void(0)"
+              [routerLink]="['/movie/', movie.id]"
+              >View more</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h5
+      *ngIf="!favouriteMovieList || favouriteMovieList.length === 0"
+      class="text-danger text-center"
+    >
+      No Favourite Movie Found!
+    </h5>
+  </div>
+</section>

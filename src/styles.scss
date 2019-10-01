@@ -1,1 +1,234 @@
-/* You can add global styles to this file, and also import other style files */
+@import "assets/css/bootstrap.min.css";
+
+/*-----------------------------------------------
+    General Styling
+-----------------------------------------------*/
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  color: #333;
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+a,
+button,
+.btn {
+  cursor: pointer;
+}
+
+.btn.focus,
+.btn:focus {
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+b,
+strong {
+  font-weight: 500;
+}
+
+/*-----------------------------------------------
+    Header Styling
+-----------------------------------------------*/
+
+header {
+  .navbar {
+    background: #097eab;
+
+    .navbar-brand,
+    .nav-link {
+      color: #fff;
+    }
+
+    .nav-link {
+      position: relative;
+
+      &:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: #fff;
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: all 0.2s ease-in-out;
+      }
+
+      &.active {
+        &:after {
+          transform: scaleX(1);
+        }
+      }
+    }
+  }
+}
+
+/*-----------------------------------------------
+    Movie List Styling
+-----------------------------------------------*/
+
+.movies-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  overflow: auto;
+  padding: 1rem 0;
+
+  .movies-list {
+    flex: auto;
+  }
+}
+
+.single-movie {
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  .movie-image {
+    width: 185px;
+    min-width: 185px;
+
+    a {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  }
+
+  .movie-info {
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    padding-left: 1rem;
+
+    .movie-header {
+      position: relative;
+      padding-right: 30px;
+      margin-bottom: 1rem;
+
+      .movie-title {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: #333;
+        text-decoration: none;
+        display: block;
+      }
+
+      .movie-date {
+        color: #777;
+        font-size: 0.9rem;
+      }
+
+      .toggle-fav {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        display: grid;
+        place-items: center;
+        color: #d8d8d8;
+        top: 0;
+        right: 0;
+        font-size: 1.5rem;
+        text-decoration: none;
+
+        &:hover {
+          color: #b7b7b7;
+        }
+
+        &.active,
+        &.active:hover {
+          color: #e91e63;
+        }
+      }
+    }
+
+    .movie-body {
+      font-size: 0.9rem;
+      flex: auto;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .view-more {
+      font-size: 0.9rem;
+      padding: 0.5rem 0rem;
+      color: #333;
+      text-decoration: none;
+
+      &:hover {
+        color: #e91e63;
+      }
+    }
+  }
+}
+
+/*-----------------------------------------------
+  Single Movie Styling
+-----------------------------------------------*/
+
+.single-movie-wrapper {
+  display: flex;
+  align-items: stretch;
+  background-color: #fff;
+  max-width: 991px;
+  margin: 0 auto;
+  margin-top: 1rem;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  .single-movie-thumbnail {
+    width: 300px;
+    min-width: 300px;
+    height: 450px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .single-movie-info {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 2rem;
+
+    .single-movie-header {
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #e4e4e4;
+      display: flex;
+      align-items: center;
+
+      .single-movie-title {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #333;
+        text-decoration: none;
+        margin-right: 0.5rem;
+      }
+
+      .single-movie-year {
+        color: #777;
+        font-size: 1.2rem;
+      }
+    }
+
+    .movie-body {
+      flex: auto;
+    }
+  }
+}

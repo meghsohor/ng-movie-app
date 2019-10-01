@@ -1,0 +1,27 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex: auto;
+}
+
+.search-wrapper {
+  height: 40px;
+  min-height: 40px;
+  border-bottom: 1px solid #e0e0e0;
+
+  .input-group-prepend {
+    width: 30px;
+    font-size: 1.2rem;
+    display: grid;
+    place-items: center;
+    margin: 0;
+    color: #777;
+  }
+
+  .form-control {
+    border: 0 none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}

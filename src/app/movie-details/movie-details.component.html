@@ -1,0 +1,20 @@
+<div class="single-movie-wrapper">
+  <div class="single-movie-thumbnail">
+    <img src="{{ movie.poster_path }}" alt="{{ movie.title }}" />
+  </div>
+
+  <div class="single-movie-info">
+    <div class="single-movie-header">
+      <span class="single-movie-title">{{ movie.title }}</span>
+      <span class="single-movie-year"
+        >({{ movie.release_date | date: "y" }})</span
+      >
+    </div>
+    <div class="single-movie-body">
+      <h6>Overview</h6>
+      <p>
+        {{ movie.overview }}
+      </p>
+    </div>
+  </div>
+</div>
