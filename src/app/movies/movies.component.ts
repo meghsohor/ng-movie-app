@@ -23,7 +23,8 @@ export class MoviesComponent implements OnInit {
   getMovieList() {
     if (localStorage.getItem("movieList") === null) {
       this.movieApiService.getMovieList().subscribe(data => {
-        this.movieList = data.results.map(movie => {
+        const {results} = data;
+        this.movieList = results.map(movie => {
           console.log(movie.poster_path);
           movie.poster_path =
             "https://image.tmdb.org/t/p/w300/" + movie.poster_path;

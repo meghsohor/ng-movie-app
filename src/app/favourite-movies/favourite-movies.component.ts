@@ -23,7 +23,8 @@ export class FavouriteMoviesComponent implements OnInit {
     let allMovies = [];
     if (localStorage.getItem("movieList") === null) {
       this.movieApiService.getMovieList().subscribe(data => {
-        allMovies = data.results.map(movie => {
+        const {results} = data;
+        allMovies = results.map(movie => {
           movie.poster_path =
             "https://image.tmdb.org/t/p/w300/" + movie.poster_path;
           movie.isFavourite = false;

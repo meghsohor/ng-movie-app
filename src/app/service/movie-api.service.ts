@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import {Observable, throwError} from 'rxjs';
+import {catchError, tap, map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: "root"
@@ -20,8 +21,11 @@ export class MovieApiService {
 
   constructor(private http: HttpClient) {}
 
-  public getMovieList() {
-    return this.http.get(this.moviesURL);
+  public getMovieList():Observable<any> {
+    return this.http.get(this.moviesURL).pipe(
+      map(data => data),
+      catchError(this.handleError)
+    );
   }
 
   public getMovie(id: number) {
@@ -39,5 +43,19 @@ export class MovieApiService {
     });
     localStorage.setItem("movieList", JSON.stringify(updatedList));
     return updatedList;
+  }
+
+  private handleError(err: HttpErrorResponse) {
+ 
+    let errorMessage = '';
+    if (err.error instanceof ErrorEvent) {
+
+        errorMessage = `An error occurred: ${err.error.message}`;
+    } else {
+
+        errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(errorMessage);
   }
 }
