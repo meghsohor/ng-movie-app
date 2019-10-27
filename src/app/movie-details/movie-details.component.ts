@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 
 import { MovieApiService } from "../service/movie-api.service";
 import { fadeInAnimation } from "../_animations/index";
-import { Movie } from "../model/movie";
+import { Movie } from "../model/movie.model";
 
 @Component({
   selector: "app-movie-details",
@@ -17,7 +17,7 @@ export class MovieDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private movieApiService: MovieApiService
-  ) {}
+  ) { }
 
   ngOnInit() {
     const movieId = this.route.snapshot.params.id;

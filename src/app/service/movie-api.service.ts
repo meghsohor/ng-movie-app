@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import {Observable, throwError} from 'rxjs';
-import {catchError, tap, map} from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap, map } from 'rxjs/operators';
+import { Movie } from '../model/movie.model';
+import { apiData } from '../model/api-data.model';
 
 @Injectable({
   providedIn: "root"
@@ -19,12 +21,15 @@ export class MovieApiService {
 
   private moviesURL = `https://api.themoviedb.org/3/discover/movie?api_key=e7ed4cea3a8874276e782c4063ac1f05&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=${this.currentDate}&release_date.gte=${this.currentDate}`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  public getMovieList():Observable<any> {
+  public getMovieList(): Observable<apiData> {
+    //return this.http.get<Movie[]>(this.moviesURL);
     return this.http.get(this.moviesURL).pipe(
-      map(data => data),
-      catchError(this.handleError)
+      map((data: apiData) => {
+        return data;
+      }),
+      catchError(this.handleError),
     );
   }
 
@@ -46,14 +51,14 @@ export class MovieApiService {
   }
 
   private handleError(err: HttpErrorResponse) {
- 
+
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {
 
-        errorMessage = `An error occurred: ${err.error.message}`;
+      errorMessage = `An error occurred: ${err.error.message}`;
     } else {
 
-        errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
+      errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
     }
     console.error(errorMessage);
     return throwError(errorMessage);

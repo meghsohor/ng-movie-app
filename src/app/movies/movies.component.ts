@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { MovieApiService } from "../service/movie-api.service";
 import { fadeInAnimation } from "../_animations/index";
-import { Movie } from "../model/movie";
+import { Movie } from "../model/movie.model";
+import { apiData } from '../model/api-data.model';
 
 @Component({
   selector: "app-movies",
@@ -14,33 +15,29 @@ export class MoviesComponent implements OnInit {
   movieList: Movie[] = [];
   filteredMovieList: Movie[] = [];
 
-  constructor(private movieApiService: MovieApiService) {}
+  constructor(private movieApiService: MovieApiService) { }
 
   ngOnInit() {
     this.getMovieList();
   }
 
-  getMovieList() {
-    if (localStorage.getItem("movieList") === null) {
-      this.movieApiService.getMovieList().subscribe(data => {
-        const {results} = data;
-        this.movieList = results.map(movie => {
-          console.log(movie.poster_path);
-          movie.poster_path =
-            "https://image.tmdb.org/t/p/w300/" + movie.poster_path;
-          movie.isFavourite = false;
-          return movie;
-        });
-        localStorage.setItem("movieList", JSON.stringify(this.movieList));
-        this.setMovieList(this.movieList);
-      });
-    } else {
-      this.movieList = JSON.parse(localStorage.getItem("movieList"));
-      this.setMovieList(this.movieList);
-    }
+  getMovieList(): void {
+    this.movieApiService.getMovieList()
+      .subscribe(
+        (data: apiData) => {
+          const results: Movie[] = data.results;
+          this.movieList = results.map(movie => {
+            movie.poster_path =
+              "https://image.tmdb.org/t/p/w300/" + movie.poster_path;
+            movie.isFavourite = false;
+            return movie;
+          });
+          this.setMovieList(this.movieList);
+        }
+      );
   }
 
-  setMovieList(updatedList) {
+  setMovieList(updatedList): void {
     this.filteredMovieList = updatedList;
   }
 
@@ -49,7 +46,7 @@ export class MoviesComponent implements OnInit {
     this.setMovieList(this.movieList);
   }
 
-  searchMovies(event) {
+  searchMovies(event): void {
     const query = event.target.value.trim();
     if (query.length > 0) {
       const searchText = query.toLowerCase().substring(0, 3);
